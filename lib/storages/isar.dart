@@ -49,4 +49,37 @@ abstract class AppIsarDatabase {
       }
     });
   }
+
+  static Future<List<Note>> getNotes(DateTime date) async {
+    return await _instance.writeTxn(
+      () async => await _instance.notes
+          .filter()
+          .dateBetween(
+            date,
+            date.add(const Duration(days: 1)),
+            includeUpper: false,
+          )
+          .findAll(),
+    );
+  }
+
+  static Future<void> addNote(Note note) async {
+    await _instance.writeTxn(() async => await _instance.notes.put(note));
+  }
+
+  static Future<void> deleteNote(int id) async {
+    await _instance.writeTxn(() async => await _instance.notes.delete(id));
+  }
+
+  static Future<void> updateNote(int id, Note newNote) async {
+    await _instance.writeTxn(() async {
+      final note = await _instance.notes.get(id);
+      if (note != null) {
+        note
+          ..description = newNote.description
+          ..date = newNote.date;
+        return await _instance.notes.put(note);
+      }
+    });
+  }
 }

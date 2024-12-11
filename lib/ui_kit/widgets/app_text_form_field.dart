@@ -23,7 +23,7 @@ class AppTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
-      style: AppStyles.bodyMedium.apply(color: AppColors.onSurface),
+      style: AppStyles.bodyMedium,
       cursorHeight: 20,
       cursorWidth: 1,
       onChanged: onChanged,

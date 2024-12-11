@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         appBar: switch (page) {
-          1 || 2 => AppBar(
+          1 || 3 => AppBar(
               backgroundColor: AppColors.background,
               surfaceTintColor: AppColors.background,
               shape: const Border(bottom: BorderSide(color: AppColors.outline)),
@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                                 : AppRoutes.editNote,
                             arguments: page == 1
                                 ? HabitState(date: selected)
-                                : NoteState(date: selected),
+                                : NoteState(date: DateTime.now()),
                           ),
                           child: const Icon(
                             Icons.add_rounded,

@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:pp692/bloc/habit_state.dart';
 import 'package:pp692/bloc/habits_bloc.dart';
+import 'package:pp692/bloc/note_state.dart';
 import 'package:pp692/navigation/routes.dart';
 import 'package:pp692/pages/edit_habit_page.dart';
+import 'package:pp692/pages/edit_note_page.dart';
 import 'package:pp692/pages/habit_page.dart';
 import 'package:pp692/pages/home_page.dart';
 import 'package:pp692/pages/onboarding_page.dart';
@@ -63,57 +65,60 @@ class _AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: context.read<HabitsBloc>().getHabits(),
-      builder: (context, snapshot) => MaterialApp(
-        title: '',
-        themeMode: ThemeMode.dark,
-        theme: ThemeData(
-          primaryColor: AppColors.primary,
-          scaffoldBackgroundColor: AppColors.background,
-          brightness: Brightness.dark,
-          appBarTheme: const AppBarTheme(
-            titleSpacing: 16,
-            backgroundColor: AppColors.surface,
-            surfaceTintColor: AppColors.surface,
+      builder: (context, snapshot) => FutureBuilder(
+        future: context.read<HabitsBloc>().getNotes(),
+        builder: (context, snapshot) => MaterialApp(
+          title: '',
+          themeMode: ThemeMode.dark,
+          theme: ThemeData(
+            primaryColor: AppColors.primary,
+            scaffoldBackgroundColor: AppColors.background,
+            brightness: Brightness.dark,
+            appBarTheme: const AppBarTheme(
+              titleSpacing: 16,
+              backgroundColor: AppColors.surface,
+              surfaceTintColor: AppColors.surface,
+            ),
           ),
+          onUnknownRoute: (settings) => CupertinoPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+          onGenerateRoute: (settings) => switch (settings.name) {
+            AppRoutes.onBoarding => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) => const OnBoardingPage(),
+              ),
+            AppRoutes.editHabit => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) =>
+                    EditHabitPage(habit: settings.arguments! as HabitState),
+              ),
+            AppRoutes.editNote => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) =>
+                    EditNotePage(note: settings.arguments! as NoteState),
+              ),
+            AppRoutes.home => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) => const HomePage(),
+              ),
+            AppRoutes.habit => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) =>
+                    HabitPage(habit: settings.arguments! as HabitState),
+              ),
+            AppRoutes.privacy => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) => const PrivacyPage(),
+              ),
+            AppRoutes.settings => CupertinoPageRoute(
+                settings: settings,
+                builder: (context) => const SettingsPage(),
+              ),
+            _ => null,
+          },
+          home: SplashPage(isFirstRun: isFirstRun),
         ),
-        onUnknownRoute: (settings) => CupertinoPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-        onGenerateRoute: (settings) => switch (settings.name) {
-          AppRoutes.onBoarding => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) => const OnBoardingPage(),
-            ),
-          AppRoutes.editHabit => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) =>
-                  EditHabitPage(habit: settings.arguments! as HabitState),
-            ),
-          AppRoutes.editNote => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) =>
-                  EditHabitPage(habit: settings.arguments! as HabitState),
-            ),
-          AppRoutes.home => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) => const HomePage(),
-            ),
-          AppRoutes.habit => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) =>
-                  HabitPage(habit: settings.arguments! as HabitState),
-            ),
-          AppRoutes.privacy => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) => const PrivacyPage(),
-            ),
-          AppRoutes.settings => CupertinoPageRoute(
-              settings: settings,
-              builder: (context) => const SettingsPage(),
-            ),
-          _ => null,
-        },
-        home: SplashPage(isFirstRun: isFirstRun),
       ),
     );
   }
