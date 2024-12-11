@@ -20,4 +20,5 @@ abstract class AppIcons {
   static const time = "assets/icons/time.svg";
   static const trash = "assets/icons/trash.svg";
   static const version = "assets/icons/version.svg";
+  static const contact = "assets/icons/contact.svg";
 }

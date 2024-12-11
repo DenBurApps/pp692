@@ -9,4 +9,6 @@ abstract class AppConstants {
     (AppIcons.focus, 'Focus'),
     (AppIcons.journal, 'Journal'),
   ];
+  static const focus = [300, 900, 1500, 3600];
+  static const breaks = [60, 300, 900, 1800];
 }
