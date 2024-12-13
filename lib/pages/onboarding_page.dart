@@ -117,7 +117,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(AppImages.onBoarding2),
+                image: AssetImage(AppImages.onBoarding3),
                 fit: BoxFit.cover,
               ),
             ),

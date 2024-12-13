@@ -117,7 +117,7 @@ class _AppWidget extends StatelessWidget {
               ),
             _ => null,
           },
-          home: SplashPage(isFirstRun: isFirstRun),
+          home: SplashPage(isFirstRun: !isFirstRun),
         ),
       ),
     );

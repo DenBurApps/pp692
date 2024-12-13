@@ -17,7 +17,10 @@ dependencies:
   flutter_email_sender: ^6.0.3
   flutter_launcher_icons: ^0.14.2
   flutter_native_splash: ^2.4.3
-  flutter_slidable: ^3.1.1
+  flutter_slidable:
+    git:
+      url: https://github.com/letsar/flutter_slidable.git
+      ref: master
   flutter_svg: ^2.0.16
   in_app_review: ^2.0.10
   intl: ^0.20.1
