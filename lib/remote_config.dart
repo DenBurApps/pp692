@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flagsmith/flagsmith.dart';
 
 class RemoteConfigService {
-  static const _apikey = '';
+  static const _apikey = '6svrcJx6ZVp95ogdWAkb67';
 
   static late final FlagsmithClient _flagsmithClient;
 
